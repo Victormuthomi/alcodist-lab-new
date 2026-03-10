@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  redis-broker:
+    image: redis:alpine
+    container_name: alcodist_redis
+    ports:
+      - '${REDIS_PORT:-6379}:6379'
+
+  db-workers:
+    image: postgres:15-alpine
+    container_name: db_workers
+    environment:
+      POSTGRES_DB: ${WORKER_DB_NAME}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    ports:
+      - '${WORKER_DB_PORT}:5432'
+
+  db-shifts:
+    image: postgres:15-alpine
+    container_name: db_shifts
+    environment:
+      POSTGRES_DB: ${SHIFT_DB_NAME}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    ports:
+      - '${SHIFT_DB_PORT}:5432'
+
+  db-workplaces:
+    image: postgres:15-alpine
+    container_name: db_workplaces
+    environment:
+      POSTGRES_DB: ${WORKPLACE_DB_NAME}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    ports:
+      - '${WORKPLACE_DB_PORT}:5432'
