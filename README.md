@@ -1,98 +1,64 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# 🧪 Alcodist Lab: Distributed Engine & Backend Playground
+**High-Concurrency Monorepo Architecture // Business Logic Sandbox**
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+![NestJS](https://img.shields.io/badge/Framework-NestJS_Monorepo-E0234E?style=for-the-badge&logo=nestjs)
+![Architecture](https://img.shields.io/badge/Pattern-Microservices_|_TCP_Gateway-blue?style=for-the-badge)
+![Docker](https://img.shields.io/badge/Infra-Docker_Compose-2496ED?style=for-the-badge&logo=docker)
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## 📌 Executive Summary
+**Alcodist Lab** is my primary engineering playground for architecting, testing, and refining complex backend systems. It is a **NestJS Monorepo** designed to move away from monolithic constraints, focusing instead on **TCP-driven microservices** and decoupled business logic.
 
-## Description
+This repository serves as a sandbox for implementing high-stakes backend patterns, including distributed state, protocol translation, and containerized orchestration.
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+---
 
-## Project setup
+## 🏗️ The Playground Architecture
 
-```bash
-$ npm install
-```
+### 1. 📂 Monorepo Structure (`apps/`)
+The Lab is divided into specialized nodes to ensure total separation of concerns:
+* **The Gateway:** The traffic orchestrator. It acts as the public-facing entry point, translating HTTP requests into internal microservice commands.
+* **Microservices:** Dedicated silos for heavy-duty business logic. These run independently and communicate with the Gateway over a high-speed internal TCP bridge.
 
-## Compile and run the project
+### 2. 📡 Internal Communication (TCP Protocol)
+* **Zero-Overhead Messaging:** Unlike standard REST-to-REST communication, the Lab utilizes **Transport.TCP** for lightning-fast, binary-efficient data transfer between services.
+* **Service Discovery:** Built-in NestJS microservice patterns for managing distributed node connectivity.
 
-```bash
-# development
-$ npm run start
+### 3. 🛡️ Shared Core (`libs/common/`)
+A centralized library used to enforce architectural standards across the entire playground:
+* **Type Safety:** Shared DTOs and interfaces to ensure the Gateway and Services remain in sync.
+* **Logic Reusability:** Common interceptors, decorators, and logging utilities.
 
-# watch mode
-$ npm run start:dev
+---
 
-# production mode
-$ npm run start:prod
-```
+## 🛠️ Engineering Tech Stack
+* **Runtime:** Node.js (LTS)
+* **Framework:** NestJS (Modular Monorepo)
+* **Language:** TypeScript (Strict Type-Checking)
+* **Orchestration:** **Docker Compose** for managing the full lifecycle of the Gateway and Service containers.
+* **Validation:** Custom `test-gateway.sh` shell scripts for automated telemetry and connectivity testing.
 
-## Run tests
+---
+
+## 🚀 Orchestrating the Lab
+The environment is designed to be spun up as a complete cluster:
 
 ```bash
-# unit tests
-$ npm run test
+# Clone the Playground
+git clone [https://github.com/Victormuthomi/alcodist-lab-new.git](https://github.com/Victormuthomi/alcodist-lab-new.git)
 
-# e2e tests
-$ npm run test:e2e
+# Install Core Dependencies
+npm install
 
-# test coverage
-$ npm run test:cov
+# Build and Launch the Microservices Cluster
+docker-compose up --build
+
+# Execute Gateway Connectivity Tests
+./test-gateway.sh
 ```
+## 🔒 Philosophy: "Fail Fast, Scale Hard"
 
-## Deployment
+* **Service Isolation:** Every piece of business logic is containerized. If a service fails during a "playground test," the rest of the cluster remains operational.
+* **Protocol Hardening:** Testing the boundaries of **TCP-based communication** to ensure maximum throughput for real-time telemetry and data processing.
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
-
-```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
-```
-
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
-
-## Resources
-
-Check out a few resources that may come in handy when working with NestJS:
-
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+---
+**© 2026 ALCODIST_LABS_RND.** // *Experimental Systems & Backend Mastery.*
