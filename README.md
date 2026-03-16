@@ -44,8 +44,7 @@ The environment is designed to be spun up as a complete cluster:
 
 ```bash
 # Clone the Playground
-git clone [https://github.com/Victormuthomi/alcodist-lab-new.git](https://github.com/Victormuthomi/alcodist-lab-new.git)
-
+git clone https://github.com/Victormuthomi/alcodist-lab-new.git
 # Install Core Dependencies
 npm install
 
